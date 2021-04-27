@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+        <head>
+              <meta charset="utf-8">
+              <title>{% block title %}Fan Fes - 日本最大のお祭り検索サイト{% endblock %}</title>
+              <meta name="description" content="{% block meta_description%}{% endblock %}">
+              <meta name="og:description" content="{% block og:description%}{% endblock %}">
+              <meta property="og:site_name" content="日本最大のお祭り検索サイト　みなさんの地元のお祭り情報を世界中に届けよう">
+              <meta property="og:image" content="{% static 'img/fan-fes_ogp.jpg' %}">
+              <meta property="og:type" content="website">
+              <meta property="og:url" content="https://fan-fes.com/">
+              <meta property="og:site_name" content="Fan Fes - 日本最大のお祭り検索サイト">
+              <meta property="og:title" content="{% block og:title %}{% endblock %}">
+              <meta name="thumbnail" content="https://fan-fes.com/static/img/fan-fes_ogp.jpg">
+              <meta name="twitter:card" content="summary_large_image">
+              <meta name="twitter:title" content="{%block twitter:title %}{% endblock %}">
+              <meta name="twitter:image" content="https://fan-fes.com/static/img/fan-fes_ogp.jpg">
+              <style>body {padding-top: 74px}</style>
+              <meta name = 'viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+              <link rel = 'stylesheet' href="{% static 'css/common.css' %}">
+              <link rel = 'stylesheet' href = 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+              <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">   
+
+              {% block head %}
+              {% endblock %}
+              <!-- Global site tag (gtag.js) - Google Analytics -->
+              <script async src="https://www.googletagmanager.com/gtag/js?id=G-XH3ZLTNKBE"></script>
+              <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-XH3ZLTNKBE');
+              </script>
+        </head>
+
+<!-- ナビゲーションバー -->    
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <div class="logo">
+
+    <a class="navbar-brand logo" href='{% url "festival:home" %}'><img src="{% static 'img/fan-fes.png' %}" class="navbar-brand logo" alt="fan-fesロゴ"></a>
+  </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href='{% url "festival:home" %}'>Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle">エリアから探す</a>
+          <div class="dropdown-menu mt-0" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href='{% url "festival:index" %}'>一覧</a>
+              {% for category in category_data %}
+              <div class="dropdown-divider"></div>
+               <a  class="dropdown-item" href ='{% url "festival:category" url_code=category.url_code %}'>{{ category.area }}</a>
+              {% endfor %}   
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href='{% url "festival:create"%}'>お祭り登録</a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href='{% url "festival:about" %}'>Fan Fesとは</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='{%url  "accounts:signup"%}'>新規登録</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class='nav-item'>
+            <a href='{% url "logout" %}' class='logout nav-link'>ログアウト</a>
+        </li>
+    {% else %}
+        <a href='{% url "login" %}' class='login nav-link'>ログイン</a>
+    {% endif %}
+      </ul>
+    </div>
+  </div>
+  </nav>
+     
+              <!-- 下記個別htmlに記載-->
+                    {% block content %}
+                    {% endblock %}
+                <!-- 上記個別htmlに記載-->
+
+            <footer class="bg-light text-center text-lg-start">
+              <!-- Grid container -->
+              <div class="container p-4">
+                <h5 class="text-left footer">エリアから探す</h5>
+                <!--Grid row-->
+                <div class="row foot">
+                  <!--Grid column-->
+                  {% for category in category_data %}
+                  <div class="col-lg-3 col-md-6 mb-4 mb-md-0 sp-side other">
+                    <ul class="list-unstyled mb-0">
+                      <li class="text-left">    <a href='{% url "festival:category" url_code=category.url_code %}' >{{ category.area }}</a></li>
+                    </ul>
+                  </div>
+                  {% endfor %}   
+                  <!--Grid column-->            
+                </div>
+                <!--Grid row-->
+              </div>
+              <!-- Grid container -->
+            
+              <!-- Copyright -->
+              <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                <div class="container">
+                    <div class="row">
+                  <div class="col-lg-3 col-md-6 mb-4 mb-md-0 sp-side">
+                  <li class="list-unstyled contents">
+                      <a href='{%url  "festival:sitemap"%}'>サイトマップ</a>
+                  </li>
+                  </div>
+                  <div class="col-lg-3 col-md-6 mb-4 mb-md-0 sp-side">
+                  <li class="list-unstyled contents">
+                      <a href='{%url  "festival:policy"%}'>プライバシーポリシー</a>
+                  </li>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0 sp-side">
+                  <li class="list-unstyled contents">
+                      <a href='{%url  "festival:contact"%}'>お問い合わせ</a>
+                  </li>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 sp-side">
+                  <li class="list-unstyled contents">
+                      <a href='{%url  "festival:requirements"%}'>推奨環境</a>
+                  </li>
+                </div>
+              </div>
+              </div>
+              <p>© 2021 Copyright<br>Fan Fes.com</p>
+              </div>
+
+            
+
+              <!-- Copyright -->
+            </footer>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+          </body>
+</html>

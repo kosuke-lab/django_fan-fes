@@ -1,0 +1,43 @@
+.button, input{
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057 !important;
+        background-color: #fff !important;
+        background-clip: padding-box !important;
+        border: 1px solid #ced4da !important;
+        border-radius:.25rem;
+
+}
+
+
+.button,select{
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057 !important;
+        background-color: #fff !important;
+        background-clip: padding-box !important;
+        border: 1px solid #ced4da !important;
+        border-radius:.25rem;
+}
+
+
+textarea{
+        min-width: 100%;
+}
+
+.center{
+        text-align: center;
+}
+
+@media screen and (max-width:768px){
+
+.btn.btn-primary{ 
+        min-width: 100% !important; 
+        }
+}

@@ -1,0 +1,104 @@
+{% extends 'festival/base.html' %}
+{% load static %}
+{% block meta_description%}日本最大のユーザー投稿型お祭り検索サイト「Fan Fes」は全国のお祭り情報を掲載中。お祭りの体験談がリアルでわかる。エリアの絞込や、検索など様々な検索条件で、あなたにぴったりのお祭りが見つかります！お祭り好きの皆さんからのお祭り情報も募集しています。{% endblock %}
+{% block og:description%}日本最大のユーザー投稿型お祭り検索サイト「Fan Fes」は全国のお祭り情報を掲載中。お祭りの体験談がリアルでわかる。エリアの絞込や、検索など様々な検索条件で、あなたにぴったりのお祭りが見つかります！お祭り好きの皆さんからのお祭り情報も募集しています。{% endblock %}
+{%block twitter:title %}日本最大のユーザー投稿型お祭り検索サイト「Fan Fes」は全国のお祭り情報を掲載中。お祭りの体験談がリアルでわかる。エリアの絞込や、検索など様々な検索条件で、あなたにぴったりのお祭りが見つかります！お祭り好きの皆さんからのお祭り情報も募集しています。{% endblock %}
+{% block head %}
+<link rel = 'stylesheet' href="{% static 'css/top.css' %}">
+<script type="application/ld+json">
+  {
+      "@context":"http://schema.org",
+      "@type":"website",
+      "name":"Fan Fes",
+      "inLanguage":"jp", 
+      "publisher": {
+      "@type": "Organization",
+      "name": "Fan Fes",
+      "logo": {
+          "@type": "ImageObject",
+          "url": "https://fan-fes.com/static/img/fan-fes.26244c28c673.png"
+      }},
+      "copyrightYear":"2021",
+  "headline":"Fan Fes - 日本最大のお祭り検索サイト",
+      "description":"日本最大のお祭り検索サイト「Fan Fes」は全国のお祭り情報を掲載中。",
+  "url":"https://fan-fes.com/"
+  }
+  </script>
+  {% endblock %}
+{% block content %}
+
+
+   <!-- <h1>全世界お祭りサイト</h1>-->
+    <div class="container-fluid">
+      <div class="row bg">
+    <img class="img-fluid" src="{% static 'img/top_mv.jpg' %}" alt="fan-fesイメージ図">
+  </div>
+  </div>
+    <div class ="block">
+    <section class ="container article">
+      <div class= "section-header">
+      <h2 class= "heading-text h2">最新記事</h3>
+      <p><span class="sub">New</span></p>
+      </div>
+         <div class="row article"> 
+            {% for festival in festivals %}
+            <div class="col-xl-3 col-lg-3 col-md-3 col-xs-3 row-eq-height">
+                <div class="card">
+                    <a href='{% url "festival:detail" festival.area.url_code festival.pk%}' class="card-link">
+                  <img class="card-img-top" src="{{ festival.pc_thumbnail.url }}" alt="{{ festival.name }}">
+                        <div class="card-body">
+                                    <p class="card-title"> {{ festival.name }}</p>
+                                    <div class="text-area">
+                                    <p class="card-text sp_text">{{ festival.detail | truncatechars:20 }}</p>
+                                </div>
+                                     <div class = "regist_date">
+                                        <p class = "day">登録日:{{ festival.regist_date |date:'Y/m/d' }}</p>
+                                    </div>
+                        </div>
+                    </a>
+                </div>
+              </div>
+             {% endfor %}   
+        </div>
+        <div class="center-btn">
+        <a class="btn btn-primary" href='{% url "festival:index" %}' role="button">記事一覧はこちら</a>
+      </div>
+    </section>
+    </div>
+
+    <div class ="block">
+    <section class ="container">
+      <div class= "section-header">
+      <h2 class= "heading-text h2">人気記事</h2>
+      <p><span class="sub">Popular</span></p>
+      </div>
+         <div class="row"> 
+            {% for festival in festivals_pv %}
+            <div class="col-xl-6 col-lg-6 col-md-6 col-xs-6 row-eq-height">
+                <a href='{% url "festival:detail" festival.area.url_code festival.pk%}' class="card-link">
+              <div class="card mb">
+                  <div class ="card-horizontal">
+                <div class="row no-gutters">
+                  <div class="col-lg-6">
+                    <img src="{{ festival.pc_thumbnail.url }}" class="card-img" alt="{{ festival.name }}">
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="card-body">
+                      <h5 class="card-title"> {{ festival.name }}</h5>
+                      <p class="card-text">{{ festival.detail | truncatechars:35 }}</p>
+                      <p class="pv"> {{ festival.views }}pv</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+                </a>
+              </div>
+             {% endfor %}   
+        </div>
+        <div class="center-btn">
+            <a class="btn btn-primary" href='{% url "festival:index" %}' role="button">記事一覧はこちら</a>
+          </div>
+    </section>
+</div>
+{% endblock %}

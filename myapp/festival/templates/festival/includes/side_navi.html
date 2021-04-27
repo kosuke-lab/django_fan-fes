@@ -1,0 +1,7 @@
+
+                    <p class="mt">エリアから選択する</p>
+                    <ul class="list-group">
+                        {% for category in category_data %}        
+                    <li class="list-group-item">  <a href="{% url 'festival:category' url_code=category.url_code %}" >{{category.area}}({{ category.post_count }})</a></li>  
+                    {% endfor %}   
+                    </ul>

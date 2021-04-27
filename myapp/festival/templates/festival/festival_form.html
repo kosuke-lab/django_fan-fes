@@ -1,0 +1,33 @@
+{% extends './base.html' %}
+{% load static %}
+{% block head %}
+            <link rel = 'stylesheet' href="{% static 'css/form.css' %}">  
+  {% endblock %}
+{% block content %}
+
+<div class="container">
+
+<h1 class="h1">お祭り情報の{{ object|yesno:'更新,作成'}}</h1>
+<form enctype="multipart/form-data" action='' method='post'>{% csrf_token %}
+    
+    {% for field in form %}
+    <div class="form-group">
+        <label class="" for ="{{ field.id_for_label }}" >{{ field.label }}:</label>
+        <div class="">
+    {{ field }} 
+    </div>
+    </div>
+    {% endfor %}
+
+    <div class="center mt-4">
+     <button type='submit' class='btn btn-primary'>{{ object|yesno:'更新,作成'}}</button>
+    </div>
+ </form>
+
+ <div class="mt-5">
+    <a href='JavaScript:history.back()'>&lt; 戻る</a>
+</div>
+
+</div>
+
+ {% endblock %}

@@ -1,0 +1,72 @@
+{% extends './base.html' %}
+{% block content %}
+
+
+
+<div class="container">
+                <div class="breadcrumb">
+                        <li class = "icon">
+                                <a href = '{% url "festival:home" %} '>TOP</a>
+                        </li>
+                        <li class = "icon">
+                                <a href = '{% url "festival:index" %} '>一覧</a>
+                        </li>
+                        <!--<a href = '{% url "festival:category" category.url_code %} '>{{ category.area }} </a>-->
+                        {{ category.area }}
+                </div>                
+    <div class ="row">
+            <!--サイドナビ開始-->
+            <div class="col-xl-2 col-lg-2 col-md-2s d-md-none d-lg-block">
+                {% include 'festival/includes/side_navi.html' %}
+            </div>
+            <!--サイドナビ終了-->
+            <!--メインコンテンツ-->
+            <div class="col-xl-10 col-lg-10 col-md-12">
+                <h1 class="h1 row article">{{ category.area }}</h1>
+                    <!--検索フォーム開始-->
+                    <div class ="row article">
+                            <div class="col-xl-6 col-lg-6 col-md-6 topic ">
+                                        {% for message in messages %}
+                                  <p class="success">{{ message }}</p>
+                                  {% endfor %}
+                            </div>
+                                    <form action='{% url "festival:category" category.url_code %}' method="GET">
+                                            <div class="col-xl-6 right">
+                                                    <div class='form-group'>
+                                                            <input name="keyword" value="" type="text">     
+                                                    {{ searchForm}}
+                                                    <input type="submit" class="btn btn-outline-primary" value="OK" />
+                                                    <a href='{% url "festival:category" category.url_code %}' class="btn btn-outline-secondary">クリア</a>
+                                                    </div>    
+                                            </div>
+                                    </form>
+                            </div>
+                    <!--検索フォーム終了-->
+            <div class="row article line">
+                {% for category in category_list %}
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-6 row-eq-height">
+                            <div class="card">
+                                <a href="{% url 'festival:detail' url_code=category.area.url_code pk=category.id %}" class="card-link">
+                                    <img class="card-img-top" src="{{category.pc_thumbnail.url}}" alt="{{ festival.name }}">
+                                    <div class="card-body">
+                                            <p class="card-title"> {{ category.name }}</p>
+                                            <div class="text-area">
+                                            <p class="card-text sp_text">{{ category.detail | truncatechars:20 }}</p>
+                                        </div>
+                                                    <div class = "regist_date">
+                                                    <p class = "day">登録日:{{ category.regist_date }}</p>
+                                            </div>
+                                    </div>
+                                </a>
+                            </div>
+                    </div>
+                    {% endfor %}   
+            </div>
+                     <!-- ページネーション-->
+                     {% include 'festival/includes/pagenation.html' %}
+                     <!-- ページネーション終了-->
+    </div>
+            <!--メインコンテンツ終了-->
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'festival/base.html' %}
+{% load static %}
+{% block head %}
+            <link rel = 'stylesheet' href="{% static 'css/kiyaku.css' %}">  
+  {% endblock %}
+{% block content %}
+
+
+
+<div class="container">
+        <div class="breadcrumb">
+                <li class = "icon">
+                        <a href = '{% url "festival:home" %} '>TOP</a>
+                </li>
+                <li>
+                        サイトマップ
+                </li>
+        </div>       
+        <h1 class= "h1">サイトマップ</h1>
+<div class= "block">
+        {% for category in category_data %}        
+          <ul class="list-unstyled mb-0">
+            <h2 class="h2">    <a href="{% url 'festival:category' url_code=category.url_code %}" >{{ category.area }}</a></h2>
+           <!-- {% for object in object_list %}    
+            <p>  {{ object.name }}</p>
+             {% endfor %}   -->
+        {% endfor %}   
+
+
+</div>
+</div>
+
+
+    
+{% endblock %}

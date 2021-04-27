@@ -1,0 +1,72 @@
+{% extends './base.html' %}
+{% block title %}全国のお祭り| {{ block.super }} {% endblock %} <!--タイトルタグ-->
+{% block meta_description %}全国のお祭り情報はFan Fesでチェック！世界中のお祭りが見つかるのはFan Fesのみ{% endblock %} <!--メタディスクリプションタグ-->
+{% block og:description%}全国のお祭り情報はFan Fesでチェック！世界中のお祭りが見つかるのはFan Fesのみ{% endblock %} <!--OGPディスクリプションタグ-->
+{% block content %}
+
+
+<div class="container">
+                <div class="breadcrumb">
+                        <li class = "icon">
+                        <a href = '{% url "festival:home" %} '>TOP</a>
+                        </li>
+                        <li>
+                      一覧
+                        </li>
+                </div>     
+        <div class ="row">
+                <!--サイドナビ開始-->
+                <div class="col-xl-2 col-lg-2 col-md-2s d-md-none d-lg-block">
+                        {% include 'festival/includes/side_navi.html' %}
+                </div>
+        <!--サイドナビ終了-->
+                <!--メインコンテンツ-->
+                <div class="col-xl-10 col-lg-10 col-md-12">
+                        <h1 class="h1 row article">全国のお祭り</h1>
+                        <!--検索フォーム開始-->
+                        <div class ="row article form-under">
+                                <div class="col-xl-6 col-lg-6 col-md-6 topic">
+                                                {% for message in messages %}
+                                                <p class="success">{{ message }}</p>
+                                                {% endfor %}
+                                </div>
+                                        <form action=' {% url "festival:index" %}' method="GET">
+                                                <div class="col-xl-6 right">
+                                                        <div class='form-group'>
+                                                                <input name="keyword" value="" type="text">     
+                                                        {{ searchForm}}
+                                                        <input type="submit" class="btn btn-outline-primary" value="OK" />
+                                                        <a href="{% url 'festival:index' %}" class="btn btn-outline-secondary">クリア</a>
+                                                        </div>    
+                                                </div>
+                                        </form>
+                                </div>
+                        <!--検索フォーム終了-->
+                <div class="row article line">
+                        {% for festival in object_list %}
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-xs-3 row-eq-height">
+                                <div class="card">
+                                        <a href='{% url "festival:detail" festival.area.url_code festival.pk%}' class="card-link">
+                                        <img class="card-img-top" src="{{ festival.pc_thumbnail.url }}" alt="{{ festival.name }}">
+                                        <div class="card-body">
+                                                <p class="card-title"> {{ festival.name }}</p>
+                                                <div class="text-area">
+                                                <p class="card-text sp_text">{{ festival.detail | truncatechars:20 }}</p>
+                                                 </div>  
+                                                        <div class = "regist_date">
+                                                        <p class = "day">登録日:{{ festival.regist_date }}</p>
+                                                </div>
+                                        </div>
+                                </a>
+                                </div>
+                        </div>
+                        {% endfor %}   
+                </div>
+         <!-- ページネーション-->
+                {% include 'festival/includes/pagenation.html' %}
+         <!-- ページネーション終了-->
+        </div>
+         <!--メインコンテンツ終了-->
+        </div>
+</div>
+{% endblock %}

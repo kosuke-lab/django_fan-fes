@@ -1,0 +1,69 @@
+{% extends 'festival/base.html' %}
+{% load static %}
+{% block head %}
+            <link rel = 'stylesheet' href="{% static 'css/about.css' %}">  
+            <link rel = 'stylesheet' href="{% static 'css/top.css' %}"> 
+  {% endblock %}
+{% block content %}
+<div class="container">
+        <div class="breadcrumb">
+                <li class = "icon">
+                        <a href = '{% url "festival:home" %} '>TOP</a>
+                </li>
+                <li>
+                        Fan Fesとは
+                </li>
+        </div>   
+    </div>    
+
+<div class="containar">
+        <div class="block">
+            <div class="container article">
+                <div class="box-size">
+                <div class="about">
+                    <img src="{% static 'img/fan-fes-about.png' %}">
+                </div>
+                <div class ="section-header">
+                    <h1 class="h1">Fan Fesとは</h1>
+                    <p>世界中のお祭りを探せる！知れる！<br>
+                    行ってみたくなる！お祭りポータルサイト</p>
+                </div>
+                <p>お祭りってこんな場所でも開催されてるよ。このお祭りはどんな祭りってこんなことがやってるよなど。</p>
+                <p>誰もがお祭りを楽しむ(fun)だけでなくお祭り(fes)の(fan)になって欲しいという意味を込めてます。</p>
+                <div class ="section-header">
+                        <h2 class="h2">Fan Fesを<br class="pc-none">立ち上げたきっかけ</h2>
+                    </div>
+                <p>みなさんの周りにもワクワクできるようなお祭りが開催されてませんか。</p>
+                <p>子供の頃、お祭りの開催時期になるとソワソワした人も少ないくないはずです。大人になった今でも、お祭りが開催されてる時期になると少しソワソワしませんか。</p>
+                <p>そんな素晴らしいお祭りが世界中に知られてないのは勿体無い。もっと色んな人に世界中のお祭りの魅力を味わって欲しいという思いから
+                    このサイトを立ち上げました。
+                </p>
+                <div class ="section-header">
+                        <h2 class="h2">Fan Fesでやりたいこと<br class="pc-none"></h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12 row-eq-height">
+                                <div class="next-about">
+                                <img src="{% static 'img/challenge_2.png' %}">
+                        <p>お祭り情報に特化したデータベースをつくる</p>
+                                </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12 row-eq-height">
+                            <div class="next-about">
+                                <img src="{% static 'img/challenge_2.png' %}">
+                                <p>coming soon</p>
+                            </div>
+                            </div>
+                    </div>
+                    <div class="sub_box">
+                        <h3 class="h3">お祭り好きのみなさん協力してください!!</h3>
+                        <p>Fan Fesでやりたいことは、私たちだけで完結できるものではありません。全国各地のお祭り情報をマニアックなまでにデータ化したり、たくさんのお祭り好きの想いを共有したいと思っています。それには全国のお祭り好きのみなさんの協力が必要です。</p>
+                    </div>
+                    <div class="center-btn">
+                            <a class="btn btn-primary" href='{% url "festival:create"%}' role="button">お祭りを登録する</a>
+                        </div>
+            </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

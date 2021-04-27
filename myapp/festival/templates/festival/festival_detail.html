@@ -1,0 +1,145 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}{{ festival.name }} | {{ block.super }} {% endblock %} <!--タイトルタグ-->
+{% block meta_description %}{{ festival.name }}のお祭り情報はFan Fesでチェック！{{ festival.detail }}{% endblock %} <!--メタディスクリプションタグ-->
+{% block og:description%}{{ festival.name }}のお祭り情報はFan Fesでチェック！{{ festival.detail }}{% endblock %} <!--OGPディスクリプションタグ-->
+{% block og:url%}{{ festival.name }}{% endblock %}
+{%block twitter:title %}{{ festival.name }}{% endblock %}
+{% block og:title %}{{ festival.name }}{% endblock %}
+
+{% block head %}
+            <link rel = 'stylesheet' href="{% static 'css/detail.css' %}">  
+  {% endblock %}
+{% block content %}
+
+
+
+
+<div class="container">
+<div class="breadcrumb">
+        <li class = "icon">
+        <a href = '{% url "festival:home" %} '>TOP </a>
+        </li>
+        <li class = "icon">
+        <a href = '{% url "festival:index" %} '>一覧</a>
+        </li>
+        <li class = "icon">  
+        <a href = '{% url "festival:category" area.url_code %} '>{{ festival.area }} </a>
+        </li>
+        {{ festival.name }}
+</div>     
+</div>
+
+
+    <section class ="container width">
+            <div class="row width"> 
+                    <div class="col-xl-2 col-lg-2 col-md-2s d-md-none d-lg-block">
+                            {% include 'festival/includes/side_navi.html' %}
+                     </div>
+                     <div class="col-xl-10 col-lg-10 col-md-12">
+                        <div class ="block-edit">
+                                {% if request.user.id == festival.author_id %}
+                                <div class="edit">
+                                <a href ='{% url "festival:update" area.url_code festival.pk%}' class="btn btn-primary pc-size" >編集</a>
+                            </div>
+                                {% endif %}
+                         <h1 class="h1 row article">{{ festival.name}}について</h1>
+                        </div>
+                     <div class="row article">
+                     <div class = "col-xl-6 col-lg-6">
+                         <div class="mb-4">
+                          <img src = '{{ festival.detail_thumbnail.url}} ' class="thumbnail"></img>
+                        </div>
+                        <div>
+                                <iframe id='map'
+                                src='https://www.google.com/maps/embed/v1/place?key=AIzaSyBksyyTjxiiNCQPNdiAdWH_fxZVzFsSANU&amp;q={{ festival.location }}'
+                            
+                                width='100%'
+                                height='150'
+                                frameborder='0'>
+                            </iframe>
+                        </div>
+                     </div>
+                     <div class = "col-xl-6 col-lg-6 table-data">
+                         <table class='tb_width'>
+                           <tbody>
+                               <tr>
+                                   <th class="d-block text-nowrap">名前</th>
+                                   <td class="d-block"> {{ festival.name}}</td>
+                               </tr>
+                               <tr>
+                                    <th class="d-block text-nowrap">エリア</th>
+                                    <td class="d-block"> {{ festival.area}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="d-block text-nowrap">国名</th>
+                                    <td class="d-block"> {{ festival.country}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="d-block text-nowrap">開催地</th>
+                                    <td class="d-block"> {{ festival.location}}</td>
+                                </tr>
+                                <tr>
+                                        <th class="d-block text-nowrap">開催月</th>
+                                        <td class="d-block"> {{ festival.start_time}}</td>
+                                    </tr>
+                                    <tr>
+                                            <th class="d-block text-nowrap">詳細情報</th>
+                                            <td class="d-block"> {{ festival.detail}}</td>
+                                        </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                </div>
+               <!-- <div class="d-block d-sm-none row article">
+                    <h2 class=h2>地図／MAP</h2>
+                <iframe id='map'
+                src='https://www.google.com/maps/embed/v1/place?key=AIzaSyCJBgcuCowQa5-V8owXaUCHhUNBN8bfMfU&amp;q={{ festival.location }}'
+            
+                width='100%'
+                height='150'
+                frameborder='0'>
+            </iframe>
+                </div>-->
+                <div class="comment">
+                    <h3 class="h3"> コメント一覧</h3>
+                    {% for comment in festival.comments.all %}<!-- 記事に対するコメントを全件取得 -->
+                    <div>
+                    <p><span class="comment_name">{{ comment.post_time |date:'Y/m/d'}} {{ comment.author }}</span><br> {{ comment.text }}</p>
+                
+            </div>
+                {% empty %}
+                <p>コメントはありません</p>
+                {% endfor %}
+                </div>
+
+
+                        <div class="form-group margin">
+                    <form method="POST">
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary " value="送信">
+                    </form>
+                    </div>
+      
+                
+
+    </section>
+    <!--<form action="{% url 'festival:detail' area.url_code festival.pk %}" method="POST">
+            <p><label for="com">コメント</label></p>
+            {% csrf_token %}
+            <textarea name="text" id="com" cols="30" rows="10"></textarea>
+            <button type="submit">投稿</button>
+        </form>-->
+
+   <!--
+    <a href = '{% url "festival:index" %}'>一覧</a>
+    {% if request.user.id == festival.author_id %}
+    <a href ='{% url "festival:update" area.url_code festival.pk%}' >編集</a>
+    <a href ='{% url "festival:create"%}' >作成</a>
+    {% endif %}-->
+
+
+
+
+{% endblock %}

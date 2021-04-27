@@ -1,0 +1,71 @@
+{% extends 'festival/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% endblock %}
+{% block content %}
+
+
+<body>
+        <div id="login">
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                            {% if form.errors %}
+                    <p class='error-msg'>ログインIDまたはパスワードが間違っています.</p>
+                             {% endif %}
+                        <div>
+                            <form id="login-form" class="form" action="" method="post">
+                                <h3 class="text-center text-info">Login</h3>
+                                <div class="form-group">
+                                    <label for="username" class="text-info">ユーザー名:</label><br>
+                                    <input type="text" name="username" id="username" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="text-info">パスワード:</label><br>
+                                    <input type="text" name="password" id="password" class="form-control">
+                                   <a  href='{% url "accounts:password_reset" %}'><p>パスワードを忘れた方はこちら</p></a>
+                                </div>
+                                <div class="form-group">
+                                    <!--<label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>-->
+                                    
+                                    <input type="submit" name="submit" class="btn btn-info btn-md" value="ログイン">
+                                    {% csrf_token %}
+                                </div>
+                                <div class="login-or">
+                                        <hr class="hr-or">
+                                        <span class="span-or">or</span>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                          <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-lg btn-block twitter"><img src="{% static 'img/icon-twitter.svg' %}" class="img_twitter">Twitter</a>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-lg btn-block google"><img src="{% static 'img/icon-google.svg' %}" class="img_google">Google</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                <div id="register-link" class="text-right">
+                                    <a href='{%url  "accounts:signup"%}' class="text-info">新規登録はこちら</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p class='error-msg'>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+            <p class='error-msg'>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

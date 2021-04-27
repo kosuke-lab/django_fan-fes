@@ -1,0 +1,28 @@
+{% extends 'festival/base.html' %}
+{% block content %}
+{% load static %}
+{% block head %}
+            <link rel = 'stylesheet' href="{% static 'css/form.css' %}">  
+  {% endblock %}
+
+  <div class="container">
+      <div class="breadcrumb">
+              <li class = "icon">
+                      <a href = '{% url "festival:home" %} '>TOP</a>
+              </li>
+              <li>
+                      お問い合わせ
+              </li>
+      </div>       
+
+    <h1>お問い合わせ</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class = "center mt-4 mb-5">
+        <button type="submit" class="btn btn-primary">送信</button>
+      </div>
+      </form>
+      </div>
+
+{% endblock %}
