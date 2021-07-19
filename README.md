@@ -17,13 +17,13 @@
 
 # 使用技術一覧
 
-・Python 3.7
-・Django 3.0
-・PostgreSQL 
-・AWS
-　・EC2
-　・S3
-　・Route53
-  ・SES
-・Google Map API
-・Twitter API
+* Python 3.7
+    * リスト1-2  
+* Django 3.0
+* PostgreSQL
+* AWS
+    * EC2
+    * Route53
+    * SES
+* Google Map API
+* Twitter API
