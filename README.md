@@ -18,7 +18,6 @@
 # 使用技術一覧
 
 * Python 3.7
-    * リスト1-2  
 * Django 3.0
 * PostgreSQL
 * AWS
